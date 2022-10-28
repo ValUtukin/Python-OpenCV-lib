@@ -21,7 +21,7 @@ def rotate(img, angle, rotation_point=None):
     return cv.warpAffine(img, rotation_matrix, dimensions)
 
 
-def rescale_frame(img, scale=0.5):
+def rescale_frame(img, scale=0.3):
     # Work for images, video and live video
     width = int(img.shape[1] * scale)
     height = int(img.shape[0] * scale)
