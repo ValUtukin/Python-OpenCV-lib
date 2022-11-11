@@ -5,7 +5,7 @@ import datetime
 # Using these code for importing scripts from sub-folder 'basic_scripts'
 from basic_scripts import transformation
 import os
-os.path.join("D:", "OpenCV", "basic_scripts")
+os.path.join("D:", "OpenCV", "../basic_scripts")
 
 
 def canny_edge_detection(img, ksize=(3, 3), threshold1=30, threshold2=60):

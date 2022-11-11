@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import os
 from basic_scripts import transformation as trans
-from find_edges import canny_edge_detection
+from advanced_scripts.find_edges import canny_edge_detection
 
 
 # Method for saving images in specific directory
@@ -20,13 +20,13 @@ def find_coord(contour):
 
 
 def main():
-    img = trans.rescale_frame(cv.imread('Images/lines_original.jpg'))
+    img = trans.rescale_frame(cv.imread('../Images/lines_original.jpg'))
     cropped_img = img[25:, :-20]  # Remove unwanted borders for exact image 'Images/lines_original.jpg'
 
     canny = canny_edge_detection(cropped_img, (3, 3))  # Make Canny for cropped image
     # canny = canny_edge_detection(img, (3, 3))
 
-    contours, hierarchy = cv.findContours(canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)  # Find contours (canny)
+    contours, hierarchy = cv.findContours(canny, cv.RETR_TREE, cv.CHAIN_APPROX_TC89_KCOS)  # Find contours (canny)
     drawing = np.zeros((canny.shape[0], canny.shape[1], 1), dtype='uint8')  # Make Matrix for drawing
     terminate_matrix = drawing.copy()
     directory = r'C:\Users\Bogh\TestFolder'  # Directory for saving contours
