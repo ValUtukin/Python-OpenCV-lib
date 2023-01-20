@@ -1,6 +1,7 @@
 import cv2 as cv
 from advanced_scripts.find_edges import canny_edge_detection
 from advanced_scripts.find_contours import find_coord
+from advanced_scripts import find_middle_points
 
 
 def kuka_coord(points):
@@ -12,15 +13,17 @@ def kuka_coord(points):
     return kuka_points
 
 
-img = cv.imread('../Images/kuka_camera.jpg')
+def main():
+    img = cv.imread('../Images/Curve1.jpg')
+    canny = canny_edge_detection(img)
+    contours, hierarchy = cv.findContours(canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
-cropped_img = img[222:473, 486:840]
-cv.imshow('Crop', cropped_img)
+    points = []
+    for point in contours[0]:
+        points.append([point[0][0], point[0][1]])
 
-canny = canny_edge_detection(cropped_img)
+    cv.waitKey(0)
 
-contours, hierarchy = cv.findContours(canny, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
-points = find_coord(contours[0])
-print(*kuka_coord(points), sep="\n")
-cv.waitKey(0)
+if __name__ == "__main__":
+    main()
